@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YVYTU Filtros | Filtros para ar ambiente</title>
+  <meta name="description" content="A YVYTU fabrica elementos filtrantes, mantas e acessórios para ar ambiente em São José dos Pinhais, PR. Empresa certificada ISO 9001:2015.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23034aa6'/%3E%3Cpath d='M8 8h5l3 6 3-6h5l-6 11v6h-4v-6z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // esconde o que vai ser animado; se o JS principal falhar, volta a mostrar
+    document.documentElement.classList.add('js');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('anim');
+      setTimeout(function () {
+        if (!window.yvytuPronto) document.documentElement.classList.remove('anim');
+      }, 3000);
+    }
+  </script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></symbol>
+    <symbol id="i-science" viewBox="0 0 24 24"><path d="M19.8 18.4 14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6z"/></symbol>
+    <symbol id="i-hospital" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51C12.96 17.55 11 21 11 21z"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5 11l1.5-4.5h11L19 11H5z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zm-5.42 7.4a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88zm8.41-18.3A11.81 11.81 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.42z"/></symbol>
+  </svg>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress" data-progress aria-hidden="true"></div>
+
+  <!-- =====================================================================
+       NAV
+       ===================================================================== -->
+  <header class="header" data-header>
+    <div class="header-bar">
+      <a class="logo" href="#inicio" aria-label="YVYTU Filtros, início">
+        <span aria-hidden="true">Y</span><span aria-hidden="true">V</span><span aria-hidden="true">Y</span><span aria-hidden="true">T</span><span aria-hidden="true">U</span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="nav-item" type="button" data-mega="produtos" aria-expanded="false" aria-controls="mega-produtos"><span>Produtos</span><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <button class="nav-item" type="button" data-mega="industrias" aria-expanded="false" aria-controls="mega-industrias"><span>Indústrias</span><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <button class="nav-item" type="button" data-mega="sobre" aria-expanded="false" aria-controls="mega-sobre"><span>Sobre nós</span><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <button class="nav-item" type="button" data-mega="servicos" aria-expanded="false" aria-controls="mega-servicos"><span>Serviços e suporte</span><svg aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <a class="nav-item" href="#saiba" data-nav="saiba"><span>Insights</span></a>
+      </nav>
+
+      <div class="tools">
+        <button class="tool" type="button" data-open="busca"><svg aria-hidden="true"><use href="#i-search"/></svg><span>Pesquisa</span></button>
+        <button class="tool tool-wide" type="button" data-open="contato"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>Fale<br>Conosco</span></button>
+        <button class="tool" type="button" data-open="menu"><svg aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span></button>
+      </div>
+    </div>
+
+    <!-- Mega menus -->
+    <div class="mega" id="mega-produtos" data-panel="produtos" data-lenis-prevent>
+      <div class="mega-inner">
+        <a class="mega-title" href="#produtos">Produtos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="mega-cols">
+          <div>
+            <a class="mega-head" href="#linhas" data-line="mantas">Mantas<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#linhas" data-line="mantas">Linha MKT, kraft perfurado</a></li>
+              <li><a href="#linhas" data-line="mantas">Linha MV, fibra de vidro</a></li>
+              <li><a href="#linhas" data-line="mantas">Linha MS, fibra sintética</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#linhas" data-line="grossos">Filtros grossos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#linhas" data-line="grossos">Linha LG, plano metálico</a></li>
+              <li><a href="#linhas" data-line="grossos">Linha ZC, plissado encartonado</a></li>
+              <li><a href="#linhas" data-line="grossos">Linha LC, plano encartonado</a></li>
+              <li><a href="#linhas" data-line="grossos">Linha JG, gaiola galvanizada</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#linhas" data-line="finos">Filtros finos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#linhas" data-line="finos">Linha YP, diedro em plástico</a></li>
+              <li><a href="#linhas" data-line="finos">Linha PGF, plissado profundo</a></li>
+              <li><a href="#linhas" data-line="finos">Linha RGF, plano miniplissado</a></li>
+              <li><a href="#linhas" data-line="finos">Linha BG, multibolsa</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#linhas" data-line="absolutos">Filtros absolutos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#linhas" data-line="absolutos">Linha YGH, diedro</a></li>
+              <li><a href="#linhas" data-line="absolutos">Linha KE, monobloco</a></li>
+              <li><a href="#linhas" data-line="absolutos">Linha RGH, plano miniplissado</a></li>
+              <li><a href="#linhas" data-line="absolutos">Linha PGH, plissado profundo</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#linhas" data-line="complementos">Complementos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#linhas" data-line="complementos">Linha CP, carvão ativado</a></li>
+              <li><a href="#linhas" data-line="complementos">Caixa para duto</a></li>
+              <li><a href="#linhas" data-line="complementos">Caixas terminais</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#destaque">Multibolsas<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#destaque">Filtro em 4 passos</a></li>
+              <li><a href="#saiba" data-open="prefiltro">Pré-filtro encartonado</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mega" id="mega-industrias" data-panel="industrias" data-lenis-prevent>
+      <div class="mega-inner">
+        <a class="mega-title" href="#industrias">Indústrias<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="mega-cols">
+          <div>
+            <a class="mega-head" href="#industrias">Segmentos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#industrias">Farmacêutica</a></li>
+              <li><a href="#industrias">Hospitalar</a></li>
+              <li><a href="#industrias">Alimentícia</a></li>
+              <li><a href="#industrias">Energética</a></li>
+              <li><a href="#industrias">Automotiva</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#saiba" data-open="cabines">Ambientes controlados<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#saiba" data-open="cabines">Capela de fluxo laminar</a></li>
+              <li><a href="#saiba" data-open="cabines">Cabine de segurança biológica</a></li>
+              <li><a href="#saiba" data-open="cabines">Cabine de pesagem</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#saiba" data-open="prefiltro">Outros ambientes<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#saiba" data-open="prefiltro">Comércios</a></li>
+              <li><a href="#saiba" data-open="prefiltro">Escritórios</a></li>
+              <li><a href="#saiba" data-open="prefiltro">Escolas</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mega" id="mega-sobre" data-panel="sobre" data-lenis-prevent>
+      <div class="mega-inner">
+        <a class="mega-title" href="#sobre">Sobre nós<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="mega-cols">
+          <div>
+            <a class="mega-head" href="#sobre">A empresa<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#sobre">Quem somos</a></li>
+              <li><a href="#sobre">Nosso compromisso</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#sobre">Qualidade<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#sobre">Certificação ISO 9001:2015</a></li>
+              <li><a href="#sobre">Norma ABNT NBR 7256</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#contato-rodape">Onde estamos<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#contato-rodape">São José dos Pinhais, Paraná</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mega" id="mega-servicos" data-panel="servicos" data-lenis-prevent>
+      <div class="mega-inner">
+        <a class="mega-title" href="#destaque">Serviços e suporte<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="mega-cols">
+          <div>
+            <a class="mega-head" href="#destaque">Fabricação sob medida<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#passos">Multibolsas conforme o projeto</a></li>
+              <li><a href="#saiba" data-open="cabines">Filtros para cabines e capelas</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#linhas">Escolha do filtro<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="#passos">Classes de filtragem G3 a F9</a></li>
+              <li><a href="#linhas">Catálogo de linhas</a></li>
+              <li><a href="#linhas" data-open="busca">Pesquisar no catálogo</a></li>
+            </ul>
+          </div>
+          <div>
+            <a class="mega-head" href="#contato-rodape" data-open="contato">Atendimento<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <ul>
+              <li><a href="tel:+554132837038">Telefone (41) 3283-7038</a></li>
+              <li><a href="#contato-rodape" data-open="contato">Fale conosco</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="scrim" data-scrim></div>
+
+  <main id="conteudo">
+
+    <!-- ===================================================================
+         HERO
+         =================================================================== -->
+    <section class="hero" id="inicio" data-hero data-spy="inicio">
+      <div class="wrap">
+        <div class="hero-frame">
+          <div class="hero-media">
+            <img src="img/hero.jpg" width="1920" height="960" fetchpriority="high" data-hero-image
+                 alt="Filtros multibolsas, filtro plano e rolo de manta filtrante da YVYTU em um ambiente industrial claro.">
+          </div>
+          <div class="hero-card" data-hero-card>
+            <h1 data-hero-item>Ar limpo<br>sempre</h1>
+            <p data-hero-item>Elementos filtrantes, mantas e acessórios para ar ambiente, fabricados em São José dos Pinhais, no Paraná.</p>
+            <a class="btn" href="#produtos" data-hero-item>Saiba mais</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         MULTIBOLSAS EM 4 PASSOS
+         =================================================================== -->
+    <section class="section section-tint" id="destaque" data-spy="produtos">
+      <div class="wrap">
+        <!-- ===== Passo a passo do multibolsa ===== -->
+        <div class="steps-head" id="passos" data-reveal="up">
+          <h2>Seu filtro multibolsas em 4 passos</h2>
+          <p>Conheça cada opção, da classe de filtragem ao acabamento das bolsas.</p>
+        </div>
+
+        <div class="steps-wrap">
+          <div class="steps-line" aria-hidden="true"><span data-steps-fill></span></div>
+
+          <ol class="steps" data-reveal-group="up">
+
+            <li data-reveal>
+              <span class="step-num" aria-hidden="true">1</span>
+              <article class="step">
+                <h3>Classes de filtragem</h3>
+                <div class="step-visual">
+                  <ul class="classes classes-step" aria-label="Classes disponíveis">
+                    <li style="--c:#23803c; --i:0">G3</li>
+                    <li style="--c:#4c8f12; --i:1">G4</li>
+                    <li style="--c:#f2b705; --t:#1c2333; --i:2">F5</li>
+                    <li style="--c:#f28c05; --t:#1c2333; --i:3">F6</li>
+                    <li style="--c:#d65a06; --i:4">F7</li>
+                    <li style="--c:#d03d10; --i:5">F8</li>
+                    <li style="--c:#b7121a; --i:6">F9</li>
+                  </ul>
+                </div>
+                <p>Disponível nas principais classes de filtragem para atender às mais diversas necessidades.</p>
+                <p class="step-claim">Eficiência na medida certa para cada aplicação!</p>
+              </article>
+            </li>
+
+            <li data-reveal>
+              <span class="step-num" aria-hidden="true">2</span>
+              <article class="step">
+                <h3>Quantidade de sacolas</h3>
+                <div class="step-visual step-bags">
+                  <div class="bagfilter" data-bags-art aria-hidden="true">
+                    <span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span>
+                  </div>
+                  <p class="bag-caption" data-bags-caption>8 sacolas ou mais</p>
+                </div>
+                <div class="bag-options" role="group" aria-label="Escolha a quantidade de sacolas">
+                  <button type="button" data-bags="3" aria-pressed="false">3</button>
+                  <button type="button" data-bags="4" aria-pressed="false">4</button>
+                  <button type="button" data-bags="5" aria-pressed="false">5</button>
+                  <button type="button" data-bags="6" aria-pressed="false">6</button>
+                  <button type="button" data-bags="8" aria-pressed="true">8+</button>
+                </div>
+                <p>Produzimos com a quantidade de bolsas que cada cliente deseja, para a solução certa no seu projeto.</p>
+                <p class="step-claim">Mais flexibilidade para o seu sistema de ventilação!</p>
+              </article>
+            </li>
+
+            <li data-reveal>
+              <span class="step-num" aria-hidden="true">3</span>
+              <article class="step">
+                <h3>Moldura em aço galvanizado</h3>
+                <div class="step-visual step-metal">
+                  <img src="img/passos/moldura.jpg" width="681" height="441" loading="lazy"
+                       alt="Detalhe do canto da moldura em chapa de aço galvanizado, com parafusos.">
+                </div>
+                <p>Estrutura robusta em chapa de aço galvanizado.</p>
+                <ul class="checks">
+                  <li><svg aria-hidden="true"><use href="#i-check"/></svg>Resistente à corrosão</li>
+                  <li><svg aria-hidden="true"><use href="#i-check"/></svg>Excelente durabilidade</li>
+                  <li><svg aria-hidden="true"><use href="#i-check"/></svg>Segurança e alta performance</li>
+                </ul>
+              </article>
+            </li>
+
+            <li data-reveal>
+              <span class="step-num" aria-hidden="true">4</span>
+              <article class="step">
+                <h3>Acabamento das bolsas</h3>
+                <div class="step-visual">
+                  <div class="finishes" role="group" aria-label="Opções de acabamento">
+                    <button type="button" data-finish aria-pressed="true">
+                      <img src="img/passos/termossoldadas.jpg" width="270" height="270" loading="lazy" alt="">
+                      <span>Termossol&shy;dadas</span>
+                    </button>
+                    <button type="button" data-finish aria-pressed="false">
+                      <img src="img/passos/costuradas.jpg" width="270" height="270" loading="lazy" alt="">
+                      <span>Costuradas</span>
+                    </button>
+                    <button type="button" data-finish aria-pressed="false">
+                      <img src="img/passos/separador.jpg" width="270" height="270" loading="lazy" alt="">
+                      <span>Separador cônico</span>
+                    </button>
+                  </div>
+                </div>
+                <p>Escolha o acabamento que melhor atende à sua aplicação.</p>
+                <p class="step-claim">Pode ser com ou sem separador cônico.</p>
+              </article>
+            </li>
+
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         PRODUTOS E COMPLEMENTOS
+         =================================================================== -->
+    <section class="section section-top-0" id="produtos" data-spy="produtos">
+      <div class="wrap">
+        <h2 data-reveal="up">O que fazemos</h2>
+
+        <div class="duo" data-reveal-group="up">
+          <article class="card" data-reveal>
+            <div class="card-media">
+              <img src="img/produtos.jpg" width="800" height="800" loading="lazy"
+                   alt="Conjunto de filtros YVYTU: multibolsas, plissados, planos, absolutos e rolos de manta.">
+            </div>
+            <h3>Produtos</h3>
+            <p>De mantas a filtros absolutos: elementos filtrantes em diferentes eficiências para ambientes comerciais e industriais.</p>
+            <a class="more" href="#linhas" data-line="mantas">Saiba mais<span class="sr"> sobre os produtos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card-media">
+              <img src="img/complementos.jpg" width="1012" height="496" loading="lazy"
+                   alt="Complementos YVYTU: filtro de carvão ativado, caixa para duto e caixas terminais.">
+            </div>
+            <h3>Complementos</h3>
+            <p>Filtros de carvão ativado, caixa para duto e caixas terminais que completam o sistema de filtragem.</p>
+            <a class="more" href="#linhas" data-line="complementos">Saiba mais<span class="sr"> sobre os complementos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         NOSSAS LINHAS (acordeão + galeria)
+         =================================================================== -->
+    <section class="section section-tint" id="linhas" data-spy="produtos">
+      <div class="wrap">
+        <h2 data-reveal="up">Nossas linhas</h2>
+
+        <div class="catalog">
+          <figure class="gallery" data-reveal="left">
+            <div class="gallery-stage">
+              <img src="img/linhas/mantas.jpg" width="1100" height="860" data-gallery-image alt="Rolos de manta filtrante de fibra de vidro e fibra sintética.">
+            </div>
+            <figcaption data-gallery-caption>Mantas em rolo, em fibra de vidro, fibra sintética e kraft.</figcaption>
+          </figure>
+
+          <div class="acc" data-accordion data-catalog data-reveal="right">
+
+            <div class="acc-item">
+              <h3><button class="acc-trigger" type="button" id="t-mantas" aria-expanded="true" aria-controls="p-mantas" data-key="mantas"
+                          data-img="img/linhas/mantas.jpg" data-alt="Rolos de manta filtrante de fibra de vidro e fibra sintética."
+                          data-caption="Mantas em rolo, em fibra de vidro, fibra sintética e kraft.">Mantas<small>3 modelos</small><svg aria-hidden="true"><use href="#i-chevron"/></svg></button></h3>
+              <div class="acc-panel" id="p-mantas" role="region" aria-labelledby="t-mantas"><div>
+                <ul class="lines">
+                  <li><img src="img/linhas/mkt.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha MKT</strong><span>Kraft com dobras perfuradas sobrepostas</span></p></li>
+                  <li><img src="img/linhas/mv.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha MV</strong><span>Paint Stop em fibra de vidro, densidade progressiva</span></p></li>
+                  <li><img src="img/linhas/ms.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha MS</strong><span>Fibra sintética, termofixadas e/ou com respaldo</span></p></li>
+                </ul>
+              </div></div>
+            </div>
+
+            <div class="acc-item">
+              <h3><button class="acc-trigger" type="button" id="t-grossos" aria-expanded="false" aria-controls="p-grossos" data-key="grossos"
+                          data-img="img/linhas/grossos.jpg" data-alt="Filtros planos e plissado com moldura em papelão."
+                          data-caption="Filtros grossos, planos e plissados.">Filtros grossos<small>5 modelos</small><svg aria-hidden="true"><use href="#i-chevron"/></svg></button></h3>
+              <div class="acc-panel" id="p-grossos" role="region" aria-labelledby="t-grossos"><div>
+                <ul class="lines">
+                  <li><img src="img/linhas/lg.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha LG</strong><span>Plano metálico, moldura galvanizada, meio filtrante em chapa expandida</span></p></li>
+                  <li><img src="img/linhas/zc.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha ZC</strong><span>Plissado encartonado, zigue-zague, meio filtrante em fibra sintética</span></p></li>
+                  <li><img src="img/linhas/lc-s.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha LC</strong><span>Plano encartonado, meio filtrante em fibra sintética</span></p></li>
+                  <li><img src="img/linhas/lc-v.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha LC</strong><span>Plano encartonado, meio filtrante em fibra de vidro</span></p></li>
+                  <li><img src="img/linhas/jg.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha JG</strong><span>Gaiola galvanizada, meio filtrante em fibra sintética</span></p></li>
+                </ul>
+              </div></div>
+            </div>
+
+            <div class="acc-item">
+              <h3><button class="acc-trigger" type="button" id="t-finos" aria-expanded="false" aria-controls="p-finos" data-key="finos"
+                          data-img="img/linhas/finos.jpg" data-alt="Filtro multibolsas e filtro fino cunha."
+                          data-caption="Filtros finos: multibolsas, diedros e plissados.">Filtros finos<small>4 modelos</small><svg aria-hidden="true"><use href="#i-chevron"/></svg></button></h3>
+              <div class="acc-panel" id="p-finos" role="region" aria-labelledby="t-finos"><div>
+                <ul class="lines">
+                  <li><img src="img/linhas/yp.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha YP</strong><span>Diedro, moldura em plástico, meio filtrante em microfibra de vidro, miniplissados</span></p></li>
+                  <li><img src="img/linhas/pgf.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha PGF</strong><span>Plissados profundos, moldura galvanizada, separadores de alumínio, microfibra de vidro</span></p></li>
+                  <li><img src="img/linhas/rgf.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha RGF</strong><span>Plano, moldura galvanizada, microfibra de vidro, miniplissados</span></p></li>
+                  <li><img src="img/linhas/bg.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha BG</strong><span>Multibolsa, moldura galvanizada, fibra sintética com bactericida, termossoldada</span></p></li>
+                </ul>
+              </div></div>
+            </div>
+
+            <div class="acc-item">
+              <h3><button class="acc-trigger" type="button" id="t-absolutos" aria-expanded="false" aria-controls="p-absolutos" data-key="absolutos"
+                          data-img="img/linhas/absolutos.jpg" data-alt="Filtros absoluto cunha, HEPA e com separador de alumínio."
+                          data-caption="Filtros absolutos HEPA, em diedro, plano e com separador de alumínio.">Filtros absolutos<small>5 modelos</small><svg aria-hidden="true"><use href="#i-chevron"/></svg></button></h3>
+              <div class="acc-panel" id="p-absolutos" role="region" aria-labelledby="t-absolutos"><div>
+                <ul class="lines">
+                  <li><img src="img/linhas/ygh-aba.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha YGH com aba</strong><span>Diedro, moldura galvanizada, microfibra de vidro, miniplissados com aba</span></p></li>
+                  <li><img src="img/linhas/ygh.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha YGH</strong><span>Diedro, moldura galvanizada, microfibra de vidro, miniplissados</span></p></li>
+                  <li><img src="img/linhas/ke.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha KE</strong><span>Monobloco, moldura em alumínio anodizado</span></p></li>
+                  <li><img src="img/linhas/rgh.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha RGH</strong><span>Plano, moldura galvanizada, microfibra de vidro, miniplissados</span></p></li>
+                  <li><img src="img/linhas/pgh.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha PGH</strong><span>Plissados profundos, moldura galvanizada, separadores de alumínio, microfibra de vidro</span></p></li>
+                </ul>
+              </div></div>
+            </div>
+
+            <div class="acc-item">
+              <h3><button class="acc-trigger" type="button" id="t-complementos" aria-expanded="false" aria-controls="p-complementos" data-key="complementos"
+                          data-img="img/complementos.jpg" data-alt="Filtro de carvão ativado, caixa para duto e caixas terminais."
+                          data-caption="Complementos: carvão ativado e caixas.">Complementos<small>5 itens</small><svg aria-hidden="true"><use href="#i-chevron"/></svg></button></h3>
+              <div class="acc-panel" id="p-complementos" role="region" aria-labelledby="t-complementos"><div>
+                <ul class="lines">
+                  <li><img src="img/linhas/cp.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Linha CP</strong><span>Carvão ativado, moldura em plástico</span></p></li>
+                  <li><img src="img/linhas/duto.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Caixa para duto</strong><span>Alojamento do filtro na rede de dutos</span></p></li>
+                  <li><img src="img/linhas/inox.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Caixa terminal inoxidável</strong><span>Com difusor perfurado</span></p></li>
+                  <li><img src="img/linhas/lateral.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Caixa terminal lateral</strong><span>Com entrada lateral retangular</span></p></li>
+                  <li><img src="img/linhas/superior.jpg" width="200" height="200" loading="lazy" alt=""><p><strong>Caixa terminal superior</strong><span>Com entrada superior redonda</span></p></li>
+                </ul>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SOBRE NÓS
+         =================================================================== -->
+    <section class="section" id="sobre" data-spy="sobre">
+      <div class="wrap">
+        <h2 data-reveal="up">Filtros que protegem.<br>Qualidade que respira.</h2>
+
+        <div class="about">
+          <figure class="frame seal" data-reveal="left">
+            <img src="img/iso.jpg" width="400" height="400" loading="lazy"
+                 alt="Selo de empresa certificada ISO 9001:2015.">
+          </figure>
+
+          <div class="about-text" data-reveal="right">
+            <p class="kicker">Empresa certificada ISO 9001:2015</p>
+            <p class="statement">Fabricamos e comercializamos elementos filtrantes, mantas e acessórios para ar ambiente nas diferentes eficiências, de acordo com a norma ABNT NBR&nbsp;7256.</p>
+            <p>Isso nos possibilita atender todos os segmentos da indústria, principalmente o farmacêutico, hospitalar, alimentício, energético e automotivo.</p>
+            <p>Temos o compromisso de fornecer produtos para garantir a solução com o melhor custo-benefício, no intuito de satisfazer às expectativas de nossos clientes.</p>
+          </div>
+        </div>
+
+        <ul class="stats" data-reveal-group="up">
+          <li data-reveal><strong data-counter="17">17</strong><span>modelos de filtros e mantas no catálogo</span></li>
+          <li data-reveal><strong data-counter="5">5</strong><span>complementos para o sistema de filtragem</span></li>
+          <li data-reveal><strong data-counter="5">5</strong><span>segmentos principais da indústria</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         INDÚSTRIAS
+         =================================================================== -->
+    <section class="section section-top-0" id="industrias" data-spy="industrias">
+      <div class="wrap">
+        <h2 data-reveal="up">Indústrias que atendemos</h2>
+
+        <ul class="industries" data-reveal-group="up">
+          <li data-reveal>
+            <h3>Farmacêutica</h3>
+            <button class="industry" type="button" data-open="contato" aria-label="Fale conosco sobre a indústria farmacêutica" style="--a:#1b6fd8; --b:#043b86">
+              <svg class="industry-icon" aria-hidden="true"><use href="#i-science"/></svg>
+              <span class="industry-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <h3>Hospitalar</h3>
+            <button class="industry" type="button" data-open="contato" aria-label="Fale conosco sobre a área hospitalar" style="--a:#0a5cc4; --b:#072a63">
+              <svg class="industry-icon" aria-hidden="true"><use href="#i-hospital"/></svg>
+              <span class="industry-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <h3>Alimentícia</h3>
+            <button class="industry" type="button" data-open="contato" aria-label="Fale conosco sobre a indústria alimentícia" style="--a:#2a86e0; --b:#0950b8">
+              <svg class="industry-icon" aria-hidden="true"><use href="#i-food"/></svg>
+              <span class="industry-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <h3>Energética</h3>
+            <button class="industry" type="button" data-open="contato" aria-label="Fale conosco sobre a indústria energética" style="--a:#0b469c; --b:#051c48">
+              <svg class="industry-icon" aria-hidden="true"><use href="#i-bolt"/></svg>
+              <span class="industry-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </button>
+          </li>
+          <li data-reveal>
+            <h3>Automotiva</h3>
+            <button class="industry" type="button" data-open="contato" aria-label="Fale conosco sobre a indústria automotiva" style="--a:#1560b8; --b:#0a2a5e">
+              <svg class="industry-icon" aria-hidden="true"><use href="#i-car"/></svg>
+              <span class="industry-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         FRASE DO YVY
+         =================================================================== -->
+    <section class="section section-top-0" data-spy="sobre">
+      <div class="wrap quote">
+        <figure class="frame quote-photo" data-reveal="left">
+          <img src="img/yvy.jpg" width="560" height="628" loading="lazy" alt="Yvy, mascote da YVYTU, com uniforme azul.">
+        </figure>
+        <div data-reveal="right">
+          <svg class="quote-mark" aria-hidden="true"><use href="#i-quote"/></svg>
+          <blockquote>É qualidade que você sente e o ar que você respira agradece!</blockquote>
+          <p class="quote-by"><strong>Yvy</strong>Mascote da YVYTU</p>
+          <button class="btn" type="button" data-open="contato">Fale conosco</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SAIBA MAIS
+         =================================================================== -->
+    <section class="section section-tint" id="saiba" data-spy="saiba">
+      <div class="wrap">
+        <h2 data-reveal="up">Conheça melhor</h2>
+
+        <div class="news" data-reveal-group="up">
+          <article class="card card-white" data-reveal>
+            <div class="card-photo"><img src="img/pre-filtro.jpg" width="612" height="468" loading="lazy" alt="Pré-filtro com moldura em papelão em um equipamento de ventilação."></div>
+            <h3>Pré-filtro encartonado</h3>
+            <p>Retém partículas maiores, como poeira, fiapos e resíduos, e protege os sistemas de ventilação.</p>
+            <button class="more" type="button" data-open="prefiltro">Saiba mais<span class="sr"> sobre o pré-filtro</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </article>
+
+          <article class="card card-white" data-reveal>
+            <div class="card-photo"><img src="img/cabines.jpg" width="774" height="484" loading="lazy" alt="Filtros absoluto cunha, fino cunha, HEPA, multibolsas e plissado."></div>
+            <h3>Cabines e capelas</h3>
+            <p>Filtros para capela de fluxo laminar, cabine de segurança biológica e cabine de pesagem.</p>
+            <button class="more" type="button" data-open="cabines">Saiba mais<span class="sr"> sobre cabines e capelas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </article>
+
+          <article class="card card-white" data-reveal>
+            <div class="card-photo"><img src="img/qualidade-do-ar.jpg" width="502" height="320" loading="lazy" alt="Filtros YVYTU em um ambiente de escritório."></div>
+            <h3>Qualidade do ar</h3>
+            <p>O ar interno influencia a saúde, o desempenho e a imagem corporativa da sua empresa.</p>
+            <button class="more" type="button" data-open="qualidade">Saiba mais<span class="sr"> sobre qualidade do ar</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       RODAPÉ
+       ===================================================================== -->
+  <footer class="footer" id="contato-rodape">
+    <button class="footer-up" type="button" data-top aria-label="Voltar ao início"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
+    <div class="wrap">
+      <div class="footer-cols">
+        <div>
+          <h2>Sobre a YVYTU</h2>
+          <p>A YVYTU Indústria e Comércio de Filtros Ltda. fabrica e comercializa elementos filtrantes, mantas e acessórios para ar ambiente. Empresa certificada ISO 9001:2015.</p>
+        </div>
+        <nav aria-label="Produtos no rodapé">
+          <h2>Produtos</h2>
+          <ul>
+            <li><a href="#linhas" data-line="mantas">Mantas</a></li>
+            <li><a href="#linhas" data-line="grossos">Filtros grossos</a></li>
+            <li><a href="#linhas" data-line="finos">Filtros finos</a></li>
+            <li><a href="#linhas" data-line="absolutos">Filtros absolutos</a></li>
+            <li><a href="#linhas" data-line="complementos">Complementos</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Empresa no rodapé">
+          <h2>Empresa</h2>
+          <ul>
+            <li><a href="#sobre">Sobre nós</a></li>
+            <li><a href="#industrias">Indústrias</a></li>
+            <li><a href="#saiba">Insights</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Fale Conosco</h2>
+          <ul>
+            <li><a href="tel:+554132837038">(41) 3283-7038</a></li>
+            <li><a href="https://wa.me/5541991918176" target="_blank" rel="noopener">(41) 99191-8176</a></li>
+            <li>São José dos Pinhais, Paraná</li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-legal">© <span data-year>2026</span> YVYTU Indústria e Comércio de Filtros Ltda.</p>
+    </div>
+  </footer>
+
+  <!-- Botões flutuantes -->
+  <button class="side-tab" type="button" data-open="contato"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span>Precisa entrar em contato?</span></button>
+  <a class="fab" href="https://wa.me/5541991918176?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20filtros%20YVYTU." target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+  <button class="to-top" type="button" data-top data-to-top aria-label="Voltar ao topo"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
+
+  <!-- =====================================================================
+       JANELAS
+       ===================================================================== -->
+  <dialog class="drawer" id="dlg-menu" aria-label="Menu" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <nav class="drawer-nav" aria-label="Menu completo">
+        <details>
+          <summary>Produtos<svg aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <a href="#produtos">Visão geral</a>
+          <a href="#linhas" data-line="mantas">Mantas</a>
+          <a href="#linhas" data-line="grossos">Filtros grossos</a>
+          <a href="#linhas" data-line="finos">Filtros finos</a>
+          <a href="#linhas" data-line="absolutos">Filtros absolutos</a>
+          <a href="#linhas" data-line="complementos">Complementos</a>
+        </details>
+        <details>
+          <summary>Indústrias<svg aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <a href="#industrias">Segmentos atendidos</a>
+          <a href="#saiba" data-open="cabines">Cabines e capelas</a>
+        </details>
+        <details>
+          <summary>Sobre nós<svg aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <a href="#sobre">Quem somos</a>
+          <a href="#contato-rodape">Onde estamos</a>
+        </details>
+        <details>
+          <summary>Serviços e suporte<svg aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <a href="#passos">Multibolsas sob medida</a>
+          <a href="#linhas">Catálogo de linhas</a>
+          <a href="#contato-rodape" data-open="contato">Fale conosco</a>
+        </details>
+        <a class="drawer-link" href="#saiba">Insights</a>
+        <a class="drawer-link" href="#inicio" data-open="busca">Pesquisa</a>
+        <a class="drawer-link" href="#inicio" data-open="contato">Fale Conosco</a>
+      </nav>
+    </div>
+  </dialog>
+
+  <dialog class="drawer" id="dlg-contato" aria-labelledby="h-contato" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <h2 id="h-contato">Fale conosco</h2>
+      <p>Diga qual filtro ou ambiente você precisa atender.</p>
+      <ul class="contact-list">
+        <li><a href="tel:+554132837038"><svg aria-hidden="true"><use href="#i-phone"/></svg><span><strong>(41) 3283-7038</strong>Telefone</span></a></li>
+        <li><a href="https://wa.me/5541991918176?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20filtros%20YVYTU." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg><span><strong>(41) 99191-8176</strong>WhatsApp</span></a></li>
+        <li><p><svg aria-hidden="true"><use href="#i-pin"/></svg><span><strong>São José dos Pinhais</strong>Paraná, Brasil</span></p></li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog class="search" id="dlg-busca" aria-label="Pesquisar no site" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <label for="campo-busca">Pesquisar filtros, linhas e indústrias</label>
+      <div class="search-field">
+        <svg aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="campo-busca" type="search" placeholder="Ex.: manta, HEPA, carvão, multibolsa" autocomplete="off" data-search-input>
+      </div>
+      <p class="search-status" role="status" data-search-status></p>
+      <ul class="search-results" data-search-results></ul>
+
+      <!-- Sugestões (aparecem com o campo vazio) -->
+      <div class="search-suggest" data-search-suggest>
+        <h2>Categorias</h2>
+        <!-- preenchido pelo main.js a partir do catálogo -->
+        <ul class="search-cats" data-search-cats></ul>
+
+        <h2>Filtros mais procurados</h2>
+        <!-- para trocar um item: data-ver-linha = nome do arquivo da foto em img/linhas -->
+        <ul class="search-top">
+          <li style="--i:0"><button type="button" data-ver-linha="bg"><img src="img/linhas/bg.jpg" width="200" height="200" loading="lazy" alt=""><strong>Multibolsas</strong><span>Linha BG</span></button></li>
+          <li style="--i:1"><button type="button" data-ver-linha="lc-s"><img src="img/linhas/lc-s.jpg" width="200" height="200" loading="lazy" alt=""><strong>Pré-filtro encartonado</strong><span>Linha LC</span></button></li>
+          <li style="--i:2"><button type="button" data-ver-linha="rgh"><img src="img/linhas/rgh.jpg" width="200" height="200" loading="lazy" alt=""><strong>HEPA absoluto</strong><span>Linha RGH</span></button></li>
+          <li style="--i:3"><button type="button" data-ver-linha="zc"><img src="img/linhas/zc.jpg" width="200" height="200" loading="lazy" alt=""><strong>Plissado encartonado</strong><span>Linha ZC</span></button></li>
+          <li style="--i:4"><button type="button" data-ver-linha="ms"><img src="img/linhas/ms.jpg" width="200" height="200" loading="lazy" alt=""><strong>Manta sintética</strong><span>Linha MS</span></button></li>
+        </ul>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-prefiltro" aria-labelledby="h-prefiltro" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <img class="modal-photo" src="img/pre-filtro.jpg" width="612" height="468" loading="lazy" alt="">
+      <h2 id="h-prefiltro">Pré-filtro com moldura em papelão</h2>
+      <ul>
+        <li><strong>Moldura em papelão:</strong> leve, resistente e sustentável.</li>
+        <li><strong>Meio filtrante em fibra sintética:</strong> retém partículas maiores do ar, como poeira, fiapos e resíduos.</li>
+        <li><strong>Tela de proteção em ambos os lados:</strong> evita deformações e aumenta a resistência e a durabilidade.</li>
+        <li><strong>Ideal para:</strong> indústrias, comércios, hospitais, escritórios e escolas.</li>
+      </ul>
+      <button class="btn" type="button" data-open="contato">Fale conosco</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-cabines" aria-labelledby="h-cabines" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <img class="modal-photo" src="img/cabines.jpg" width="774" height="484" loading="lazy" alt="">
+      <h2 id="h-cabines">Filtros para cabines e capelas</h2>
+      <p>Fabricamos filtros para capela de fluxo laminar, cabine de segurança biológica e cabine de pesagem.</p>
+      <ul>
+        <li>Absoluto cunha e fino cunha</li>
+        <li>HEPA absoluto e fino</li>
+        <li>Separador de alumínio</li>
+        <li>Multibolsas, plissado e plano encartonado</li>
+        <li>Mantas de fibra de vidro e fibra sintética</li>
+      </ul>
+      <button class="btn" type="button" data-open="contato">Fale conosco</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-qualidade" aria-labelledby="h-qualidade" data-lenis-prevent>
+    <div class="dlg-body">
+      <button class="dlg-close" type="button" data-close><span>Fechar</span><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+      <img class="modal-photo" src="img/qualidade-do-ar.jpg" width="502" height="320" loading="lazy" alt="">
+      <h2 id="h-qualidade">O ar da sua empresa e a produtividade</h2>
+      <p>A qualidade do ar interno influencia saúde, desempenho e imagem corporativa.</p>
+      <p>Investir em filtragem ambiental eficiente reduz afastamentos e reforça a responsabilidade ambiental.</p>
+      <button class="btn" type="button" data-open="contato">Fale conosco</button>
+    </div>
+  </dialog>
+
+</body>
+</html>
