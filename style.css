@@ -379,6 +379,9 @@ h2 { font-size: clamp(2.125rem, 4vw, 3.5rem); margin-bottom: 40px; }
 .section-top-0 { padding-top: 0; }
 .section-tint { background: var(--tint); }
 .section-tint + .section-top-0 { padding-top: var(--secao); }
+/* seções vizinhas com o mesmo fundo: menos espaço em cima para os dois recuos não somarem */
+#sobre  { padding-top: 24px; }
+#linhas { padding-top: 24px; }
 
 .classes { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 18px; }
 .classes li {

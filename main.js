@@ -623,7 +623,7 @@
       n: alvo,
       duration: 1.8,
       ease: "power2.out",
-      scrollTrigger: { trigger: el, start: "top 90%", once: true },
+      scrollTrigger: { trigger: el, start: "top bottom", once: true },
       onUpdate: () => {
         el.textContent = Math.round(valor.n);
       },
