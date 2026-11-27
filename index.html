@@ -411,6 +411,14 @@
             </li>
 
           </ol>
+
+          <!-- só aparece no telefone, onde os passos viram um carrossel -->
+          <div class="steps-dots" data-steps-dots role="group" aria-label="Ir para o passo">
+            <button type="button" aria-label="Passo 1: Classes de filtragem" aria-current="step"></button>
+            <button type="button" aria-label="Passo 2: Quantidade de sacolas" aria-current="false"></button>
+            <button type="button" aria-label="Passo 3: Moldura em aço galvanizado" aria-current="false"></button>
+            <button type="button" aria-label="Passo 4: Acabamento das bolsas" aria-current="false"></button>
+          </div>
         </div>
       </div>
     </section>
@@ -716,7 +724,7 @@
       <label for="campo-busca">Pesquisar filtros, linhas e indústrias</label>
       <div class="search-field">
         <svg aria-hidden="true"><use href="#i-search"/></svg>
-        <input id="campo-busca" type="search" placeholder="Ex.: manta, HEPA, carvão, multibolsa" autocomplete="off" data-search-input>
+        <input id="campo-busca" type="search" placeholder="Ex.: manta, HEPA" autocomplete="off" data-search-input>
       </div>
       <p class="search-status" role="status" data-search-status></p>
       <ul class="search-results" data-search-results></ul>

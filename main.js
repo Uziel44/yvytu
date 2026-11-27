@@ -176,6 +176,23 @@
     if (abrir) trocarImagem(gatilho);
   }
 
+  // ao fechar uma categoria de cima, o título tocado subiria para fora da tela:
+  // enquanto os painéis animam, segura o título logo abaixo da barra
+  function segurarTitulo(gatilho) {
+    const fim = performance.now() + 700;
+    const passo = () => {
+      const limite = $(".header").getBoundingClientRect().bottom + 12;
+      const falta = gatilho.getBoundingClientRect().top - limite;
+      if (falta < -1) {
+        const y = window.scrollY + falta;
+        if (lenis) lenis.scrollTo(y, { immediate: true });
+        else window.scrollTo({ top: y, behavior: "instant" });
+      }
+      if (performance.now() < fim) requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  }
+
   $$("[data-accordion]").forEach((grupo) => {
     const itens = $$(".acc-trigger", grupo);
 
@@ -184,6 +201,7 @@
         const abrir = gatilho.getAttribute("aria-expanded") !== "true";
         itens.forEach((outro) => outro !== gatilho && definirItem(outro, false));
         definirItem(gatilho, abrir);
+        if (abrir) segurarTitulo(gatilho);
         if (animar) setTimeout(() => ScrollTrigger.refresh(), 500);
       });
 
@@ -504,8 +522,13 @@
     return relogio;
   }
 
+  // quem já escolheu não vê a demonstração passar por cima da escolha
+  let escolheuBolsas = false;
+  let escolheuAcabamento = false;
+
   opcoesBolsas.forEach((botao) =>
     botao.addEventListener("click", () => {
+      escolheuBolsas = true;
       clearInterval(demoBolsas);
       legendaBolsas.setAttribute("aria-live", "polite");
       mostrarBolsas(Number(botao.dataset.bags));
@@ -514,8 +537,39 @@
 
   acabamentos.forEach((botao, i) =>
     botao.addEventListener("click", () => {
+      escolheuAcabamento = true;
       clearInterval(demoAcabamento);
       escolherAcabamento(i);
+    }),
+  );
+
+  // telefone: os passos viram um carrossel (CSS); os pontos acompanham e levam a cada um
+  const carrossel = $(".steps");
+  const cartoes = $$(":scope > li", carrossel);
+  const pontos = $$("[data-steps-dots] button");
+
+  // distância entre o centro de um cartão e o centro do carrossel
+  function desvioDoCentro(li) {
+    const c = li.getBoundingClientRect();
+    const area = carrossel.getBoundingClientRect();
+    return c.left + c.width / 2 - (area.left + area.width / 2);
+  }
+
+  function marcarPonto() {
+    const { scrollLeft, scrollWidth, clientWidth } = carrossel;
+    let atual = 0;
+    cartoes.forEach((li, i) => {
+      if (Math.abs(desvioDoCentro(li)) < Math.abs(desvioDoCentro(cartoes[atual]))) atual = i;
+    });
+    if (scrollLeft <= 4) atual = 0;
+    else if (scrollLeft >= scrollWidth - clientWidth - 4) atual = cartoes.length - 1;
+    pontos.forEach((p, i) => p.setAttribute("aria-current", i === atual ? "step" : "false"));
+  }
+
+  carrossel.addEventListener("scroll", () => requestAnimationFrame(marcarPonto), { passive: true });
+  pontos.forEach((ponto, i) =>
+    ponto.addEventListener("click", () => {
+      carrossel.scrollBy({ left: desvioDoCentro(cartoes[i]), behavior: reduzido ? "auto" : "smooth" });
     }),
   );
 
@@ -525,8 +579,12 @@
         entradas.forEach(({ isIntersecting, target }) => {
           if (!isIntersecting) return;
           target.classList.add("is-visible");
-          if ($("[data-bags-art]", target)) demoBolsas = demonstrar([3, 4, 5, 6, 8], 850, mostrarBolsas);
-          if ($("[data-finish]", target)) demoAcabamento = demonstrar([0, 1, 2, 0], 900, escolherAcabamento);
+          if (!escolheuBolsas && $("[data-bags-art]", target)) {
+            demoBolsas = demonstrar([3, 4, 5, 6, 8], 850, mostrarBolsas);
+          }
+          if (!escolheuAcabamento && $("[data-finish]", target)) {
+            demoAcabamento = demonstrar([0, 1, 2, 0], 900, escolherAcabamento);
+          }
           obs.unobserve(target);
         });
       },

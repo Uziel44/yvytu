@@ -22,7 +22,7 @@
   --fonte: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --raio: 8px;
   --header-h: 88px;
-  --secao: clamp(64px, 7.5vw, 112px);
+  --secao: clamp(48px, 5vw, 72px);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --sombra: 0 0 30px rgb(10 16 32 / 0.08);
   --sombra-alta: 0 24px 48px -18px rgb(3 74 166 / 0.35);
@@ -782,6 +782,7 @@ h2 { font-size: clamp(2.125rem, 4vw, 3.5rem); margin-bottom: 40px; }
   color: var(--texto-suave);
   font-size: 0.875rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 .catalog .acc-trigger svg { margin-left: 0; }
 
@@ -1042,7 +1043,8 @@ dialog::backdrop { background: rgb(5 28 72 / 0.5); backdrop-filter: blur(3px); }
   font-weight: 700;
 }
 .dlg-close svg { width: 20px; height: 20px; transition: rotate 0.35s var(--ease); }
-.dlg-close:hover svg { rotate: 90deg; }
+/* só com mouse: no toque o "hover" fica preso e o X aparece torto */
+@media (hover: hover) { .dlg-close:hover svg { rotate: 90deg; } }
 
 .drawer {
   width: min(440px, 100%);
@@ -1275,6 +1277,8 @@ dialog::backdrop { background: rgb(5 28 72 / 0.5); backdrop-filter: blur(3px); }
   .about, .stats { padding-inline: 0; }
   .hero-card { width: min(440px, 48%); }
   .hero-media img { object-position: 85% 50%; }
+  .finishes button { font-size: 0.75rem; }
+  .side-tab { display: none; } /* em telas menores cobria o conteúdo; já há o botão do WhatsApp */
 }
 
 @media (max-width: 899px) {
@@ -1283,7 +1287,6 @@ dialog::backdrop { background: rgb(5 28 72 / 0.5); backdrop-filter: blur(3px); }
   .news .card { padding: 16px; }
   .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .quote-photo { justify-self: start; max-width: 280px; }
-  .side-tab { display: none; }
 
   /* como no celular da Camfil: foto em cima, cartão embaixo */
   .hero { padding-top: 16px; }
@@ -1347,4 +1350,145 @@ dialog::backdrop { background: rgb(5 28 72 / 0.5); backdrop-filter: blur(3px); }
   }
   .search-top img { margin: 0; }
   .search-top span { margin: 0; padding: 0; }
+}
+
+/* celulares muito estreitos */
+@media (max-width: 360px) {
+  .catalog .acc-trigger { gap: 8px; padding-inline: 14px; font-size: 1rem; }
+  .search-cats button { gap: 4px; padding: 0 5px 0 10px; font-size: 0.75rem; }
+  .fab { right: 12px; bottom: 12px; width: 50px; height: 50px; }
+}
+
+/* tablet em pé: dois cartões por linha em vez de uma foto gigante */
+@media (min-width: 600px) and (max-width: 899px) {
+  .duo { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .quote { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); }
+}
+
+/* tablet: três indústrias em cima e duas embaixo, sem buraco */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .industries { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .industries li { grid-column: span 2; }
+  .industries li:nth-child(n + 4) { grid-column: span 3; }
+  .industries li:nth-child(n + 4) .industry { aspect-ratio: 7 / 6; }
+  .industries li:nth-child(n + 4) .industry-icon { width: 27%; }
+}
+
+/* dedo em vez de mouse: alvos de toque de pelo menos 44px */
+@media (pointer: coarse) {
+  .logo { align-items: center; min-height: 44px; }
+  .more, .dlg-close, .bag-options button { min-height: 44px; }
+  .footer li { margin-bottom: 0; }
+  .footer li a { display: inline-block; padding-block: 8px; }
+}
+
+/* celular deitado: pouca altura */
+@media (orientation: landscape) and (max-height: 500px) {
+  :root { --header-h: 60px; }
+  .header[data-scrolled="true"] .header-bar { height: var(--header-h); }
+  .logo span { width: 26px; height: 30px; font-size: 1.0625rem; }
+  .side-tab, .to-top { display: none; }
+
+  /* portada: texto e foto lado a lado, tudo na primeira tela */
+  .hero { padding-top: 12px; }
+  .hero-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 12px;
+    height: auto;
+    min-height: calc(100svh - var(--header-h) - 24px);
+    overflow: visible;
+    background: transparent;
+  }
+  .hero-card {
+    position: static;
+    order: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: auto;
+    margin: 0;
+    padding: 16px 20px;
+    background: var(--branco);
+    box-shadow: none;
+  }
+  .hero h1 { margin-bottom: 8px; font-size: 1.75rem; }
+  .hero-card p { margin-bottom: 14px; font-size: 1rem; }
+  .hero-media {
+    position: relative;
+    inset: auto;
+    aspect-ratio: auto;
+    overflow: hidden;
+    border-radius: var(--raio);
+  }
+  .hero-media img { position: absolute; inset: 0; object-position: 92% 50%; }
+
+  .gallery-stage { aspect-ratio: auto; height: 56svh; }
+
+  /* janelas: foto ao lado do texto e menos margem em cima */
+  .dlg-body { padding-top: 64px; }
+  .modal-photo { float: left; width: 38%; margin: 0 20px 12px 0; }
+  .modal ul { display: flow-root; }
+  .search { margin-top: 8px; max-height: calc(100% - 16px); }
+  .search .dlg-body { padding-top: 16px; }
+  .search label {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 8px;
+    padding-right: 128px;
+    font-size: 1.0625rem;
+  }
+}
+
+/* telefone (em pé ou deitado): os 4 passos viram um carrossel horizontal */
+.steps-dots { display: none; }
+
+@media (max-width: 640px), (orientation: landscape) and (max-height: 500px) {
+  .steps {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    /* vai de borda a borda; o recuo devolve o alinhamento com o resto da página */
+    margin-inline: calc(50% - 50vw);
+    padding: 4px calc(50vw - 50%) 16px;
+    overflow: auto hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .steps::-webkit-scrollbar { display: none; }
+  .steps > li { flex: 0 0 84%; min-width: 0; scroll-snap-align: center; }
+  .steps > li:hover .step { box-shadow: var(--sombra); } /* a sombra grande ficaria cortada */
+
+  .steps-dots { display: flex; justify-content: center; }
+  .steps-dots button {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .steps-dots button::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgb(3 74 166 / 0.4);
+    transition: width 0.35s var(--ease), background-color 0.25s;
+  }
+  .steps-dots button[aria-current="step"]::before { width: 28px; background: var(--azul); }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .steps > li { flex-basis: 58%; }
+}
+
+@media (max-width: 360px) {
+  .steps > li { flex-basis: 90%; }
+  .steps .step { padding: 16px; }
+  .steps .bag-options { gap: 4px; }
 }
